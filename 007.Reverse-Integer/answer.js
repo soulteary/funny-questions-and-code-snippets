@@ -3,24 +3,26 @@
  * @return {number}
  */
 var reverse = function (x) {
-    if (x === 0) {
-        return 0;
+    // extend single digit
+    if (x > -10 && x < 10) return x;
+
+    function isOverflow (src) {
+        return src >= 2147483647 || src < -2147483648;
     }
 
-    var source = x.toString();
+    // overflow -2147483648,2147483647
+    if (isOverflow(x)) return 0;
 
-    if (source.length >= 10) {
-        return 0;
-    }
-
-    source = source.split('');
+    var source = x.toString().split('');
 
     var sign = 1;
     if (x < 0) {
         sign = -1;
         source.shift();
     }
-    return Number(source.reverse().join('').replace(/^0{1,}/g, '')) * sign;
+
+    var ret = Number(source.reverse().join('').replace(/^0{1,}/g, '')) * sign;
+    return isOverflow(ret) ? 0 : ret;
 };
 
 module.exports = reverse;
