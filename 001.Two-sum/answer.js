@@ -5,9 +5,9 @@
  */
 var twoSum = function (nums, target) {
     var cache = {};
-    for (var i = 0, j = nums.length; i < j; i++) {
+    for (var i = 0; i < nums.length; i++) {
         var diff = target - nums[i];
-        if (isNaN(cache[diff])) return [cache[diff], i];
+        if (!isNaN(cache[diff])) return [cache[diff], i];
         cache[nums[i]] = i;
     }
     return [];
